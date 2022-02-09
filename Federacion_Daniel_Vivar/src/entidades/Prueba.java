@@ -201,11 +201,14 @@ public class Prueba {
 		}
 	}
 
+
 	@Override
 	public String toString() {
-		return "Prueba [id=" + id + ", nombre=" + nombre + ", fecha=" + fecha + ", individual=" + individual
-				+ ", lugar=" + lugar + ", arbitraje=" + Arrays.toString(arbitraje) + ", resultado=" + resultado
-				+ ", participantes=" + Arrays.toString(participantes) + "]";
+		String ret = "";
+
+		ret = this.getId() + ". " + this.getNombre() + " (" + this.fecha.until(fecha, null) + " en " + this.getLugar() + ") " + this.isIndividual() + this.nombresEquipoArbitral() + " Resultado: " + this.getResultado() + " Primer puesto: " + this.getParticipantes() + " , con el dorsal" + this.getParticipantes() + 
+				this.getParticipantes() + " #Oro" ;
+		return ret;
 	}
 
 	//Examen 1 Ejercicio 2, parte B
