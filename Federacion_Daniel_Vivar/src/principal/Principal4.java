@@ -1,5 +1,7 @@
 package principal;
 
+import java.io.FileReader;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Scanner;
 
@@ -58,7 +60,7 @@ public class Principal4 {
 					System.out.println("Introduzca su contraseña:");
 					password = in.next();
 					cred = new Credenciales(usuario, password);
-					login = login(cred);
+					login = loginU(cred);
 					if (!login)
 						System.out.println("ERROR: Usuario o password incorrectos.");
 					else
@@ -74,6 +76,26 @@ public class Principal4 {
 
 	} // Final del main
 
+	 private static boolean loginUs(Credenciales cred) {
+		return false;
+		
+	 }
+		public void leerU(){
+			try {
+				FileReader entrada=new FileReader ("C:/Uuarios/usut25/Desktop/ejemplo.txt");
+				int c =0;
+				while (c!=-1){
+					c=entrada.read();
+					char letra=(char)c;
+					System.out.print(letra);
+				}
+				entrada.close();
+				}catch (IOException e) {
+					System.out.println ("No se ha encontrado el archivo");
+				}
+			}
+		
+	 
 	// Examen 3 Ejercicio 2 - Examen 4 Ejercicio 3C
 	private static void mostrarMenu(Rol rol) {
 		int elecc = -1;
