@@ -1,7 +1,11 @@
 package principal;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.time.LocalDate;
 import java.util.Scanner;
 
@@ -76,26 +80,48 @@ public class Principal4 {
 
 	} // Final del main
 
-	 private static boolean loginU(Credenciales cred) {
+	// Ejercicio 1 y 2
+	private static boolean loginU(Credenciales cred) {
 		return false;
-		
-	 }
-		public void leerU(){
-			try {
-				FileReader entrada=new FileReader ("C:/Uuarios/usut25/Desktop/ejemplo.txt");
-				int c =0;
-				while (c!=-1){
-					c=entrada.read();
-					char letra=(char)c;
-					System.out.print(letra);
-				}
-				entrada.close();
-				}catch (IOException e) {
-					System.out.println ("No se ha encontrado el archivo");
-				}
+
+	}
+
+	public void leerU() {
+		try {
+			FileReader entrada = new FileReader("C:/Uuarios/usut25/Desktop/ejemplo.txt");
+			int c = 0;
+			while (c != -1) {
+				c = entrada.read();
+				char letra = (char) c;
+				System.out.print(letra);
 			}
-		
-	 
+			entrada.close();
+		} catch (IOException e) {
+			System.out.println("No se ha encontrado el archivo");
+		}
+	}
+
+	public static void exportarJunior() {
+		try {
+			File f = new File("juniors.dat");
+			FileOutputStream fo = new FileOutputStream(f);
+			ObjectOutputStream os = new ObjectOutputStream(fo);
+
+			for (Atleta a : Datos.ATLETAS) {
+				DatosPersona dp = a.getPersona();
+				if (dp.getFechaNac().isAfter(LocalDate.of(2000, 1, 1))) {
+					os.writeObject(a);
+				}
+				os.close();
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+		}
+	}
+
 	// Examen 3 Ejercicio 2 - Examen 4 Ejercicio 3C
 	private static void mostrarMenu(Rol rol) {
 		int elecc = -1;

@@ -201,17 +201,30 @@ public class Prueba {
 		}
 	}
 
-
+	/**
+	 * Ejercicio 4 Funcion que establece el resultado definitivo de la prueba
+	 * mostrandolo por pantalla
+	 * 
+	 */
 	@Override
 	public String toString() {
 		String ret = "";
 
-		ret = this.getId() + ". " + this.getNombre() + " (" + this.fecha.until(fecha, null) + " en " + this.getLugar() + ") " + this.isIndividual() + this.nombresEquipoArbitral() + " Resultado: " + this.getResultado() + " Primer puesto: " + this.getParticipantes() + " , con el dorsal" + this.getParticipantes() + 
-				this.getParticipantes() + " #Oro" ;
+		ret = this.getId() + ". " + this.getNombre() + " (" + this.fecha + " en " + this.getLugar().getNombre() + ") "
+				+ (this.isIndividual() ? "individual" : "colectiva");
+		if (hayEquipoArbitral())
+			ret += this.nombresEquipoArbitral();
+		if (cerrada()) {
+			Resultado r = this.getResultado();
+			r.getPrimero().getId();
+			
+			ret += " Resultado: " + this.getResultado() + " Primer puesto: " + this.getParticipantes()
+					+ " , con el dorsal" + this.getParticipantes() + this.getParticipantes() + " #Oro";
+		}
 		return ret;
 	}
 
-	//Examen 1 Ejercicio 2, parte B
+	// Examen 1 Ejercicio 2, parte B
 	public static Prueba nuevaPrueba() {
 		Prueba ret = null;
 		Scanner in;
@@ -224,7 +237,7 @@ public class Prueba {
 			in = new Scanner(System.in);
 			id = in.nextInt();
 			valido = Validaciones.validarId(id);
-			if(!valido)
+			if (!valido)
 				System.out.println("ERROR: Valor introducido para el identificador de la prueba inválido.");
 			else
 				valido = true;
@@ -235,7 +248,7 @@ public class Prueba {
 			in = new Scanner(System.in);
 			nombre = in.nextLine();
 			valido = Validaciones.validarNombre(nombre);
-			if(!valido)
+			if (!valido)
 				System.out.println("ERROR: Valor introducido para el nombre de la prueba inválido.");
 			else
 				valido = true;
