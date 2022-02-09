@@ -76,7 +76,7 @@ public class Principal4 {
 
 	} // Final del main
 
-	 private static boolean loginUs(Credenciales cred) {
+	 private static boolean loginU(Credenciales cred) {
 		return false;
 		
 	 }
