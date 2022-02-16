@@ -2,8 +2,11 @@ package entidades;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import utils.Datos;
 import validaciones.Validaciones;
@@ -116,41 +119,80 @@ public class Manager {
 		return ret;
 	}
 
-	/***
-	 * Ejercicio3 Función que devuelve una cadena de caracteres con los datos del
-	 * mánager en el
+	/**
+	 * /*** Ejercicio3 (Daniel) Función que devuelve una cadena de caracteres con
+	 * los datos del mánager en el
 	 * <DatosPersona.id>|<DatosPersona.nombre>|<DatosPersona.documentacion>|<DatosPersona.fec
 	 * haNac>|<DatosPersona.telefono>|<Manager.id>|<Manager.telefono>|<Manager.direccion>
+	 * 
+	 * public String data() { String ret = "";
+	 * 
+	 * ret = this.persona.getId() + "|" + this.persona.getNombre() + "|" +
+	 * this.persona.getNifnie() + "|" + this.persona.getFechaNac() + "|" +
+	 * this.persona.getTelefono() + "|" + this.getId() + "|" + this.getTelefono() +
+	 * "|" + this.getDireccion(); return ret; }
+	 * 
+	 * public static void exportDtManager() { System.out.println("Datos guardados
+	 * del Manager.txt"); File fOut = new File("datosmanagers.txt"); FileWriter fw =
+	 * null; BufferedWriter bw = null; String data; try { fw = new FileWriter(fOut);
+	 * bw = new BufferedWriter(fw);
+	 * 
+	 * for (int i = 0; i < Datos.MANAGERS.length; i++) { Manager m = new Manager();
+	 * m = Datos.MANAGERS[i]; bw.write(m.data() + "\n"); bw.close(); } } catch
+	 * (IOException e) { e.printStackTrace(); }
+	 * 
+	 * }
+	 */
+
+////Examen 6 Ejercicio 3
+	/**
+	 * Función que devuelve una cadena de caracteres con la siguiente estructura
+	 * <DatosPersona.id>|<DatosPersona.nombre>|<DatosPersona.documentacion>|<DatosPersona.fec
+	 * haNac>|<DatosPersona.telefono>|<Manager.id>|<Manager.telefono>|<Manager.direccion>
+	 * Cada campo se separa mediante el caracter '|'
+	 * 
+	 * @return
 	 */
 	public String data() {
-		String ret = "";
-
-		ret = this.persona.getId() + "|" + this.persona.getNombre() + "|" + this.persona.getNifnie() + "|"
-				+ this.persona.getFechaNac() + "|" + this.persona.getTelefono() + "|" + this.getId() + "|"
-				+ this.getTelefono() + "|" + this.getDireccion();
-		return ret;
+		return "" + persona.getId() + "|" + persona.getNombre() + "|" + persona.getNifnie().mostrar() + "|"
+				+ persona.getFechaNac().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + "|" + persona.getTelefono()
+				+ "|" + this.id + "|" + this.telefono + "|" + this.direccion;
 	}
 
-	public static void exportDtManager() {
-		System.out.println("Datos guardados del Manager.txt");
-		File fOut = new File("datosmanagers.txt");
-		FileWriter fw = null;
-		BufferedWriter bw = null;
-		String data;
+	/***
+	 * Función para exportar los datos de cada uno de los mánagers de una colección
+	 * que se le pasa como parámetro, a través del método data() anterior, separando
+	 * la información de cada mánager en una línea distinta.
+	 * 
+	 * @param managers la coleccion de managers a exportar
+	 */
+	private static void exportar(Manager[] managers) {
+		String path = "managers.txt";
+		File fichero = new File(path);
+		FileWriter escritor = null;
+		PrintWriter buffer = null;
 		try {
-			fw = new FileWriter(fOut);
-			bw = new BufferedWriter(fw);
-
-			for (int i = 0; i < Datos.MANAGERS.length; i++) {
-				Manager m = new Manager();
-				m = Datos.MANAGERS[i];
-				bw.write(m.data() + "\n");
-				bw.close();
+			try {
+				escritor = new FileWriter(fichero, false);
+				buffer = new PrintWriter(escritor);
+				for (Manager m : managers) {
+					buffer.println(m.data());
+				}
+			} finally {
+				if (buffer != null) {
+					buffer.close();
+				}
+				if (escritor != null) {
+					escritor.close();
+				}
 			}
+		} catch (FileNotFoundException e) {
+			System.out.println("Se ha producido una FileNotFoundException" + e.getMessage());
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println("Se ha producido una IOException" + e.getMessage());
+		} catch (Exception e) {
+			System.out.println("Se ha producido una Exception" + e.getMessage());
 		}
-
 	}
 
 	/***
