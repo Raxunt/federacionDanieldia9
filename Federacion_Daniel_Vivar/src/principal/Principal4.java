@@ -81,48 +81,27 @@ public class Principal4 {
 
 	} // Final del main
 
-	/** Ejercicio 1 y 2
-	private static boolean loginU(Credenciales cred) {
-		return false;
-
-	}
-
-	public void leerU() {
-		try {
-			FileReader entrada = new FileReader("C:/Uuarios/usut25/Desktop/ejemplo.txt");
-			int c = 0;
-			while (c != -1) {
-				c = entrada.read();
-				char letra = (char) c;
-				System.out.print(letra);
-			}
-			entrada.close();
-		} catch (IOException e) {
-			System.out.println("No se ha encontrado el archivo");
-		}
-	}
-
-	public static void exportarJunior() {
-		try {
-			File f = new File("juniors.dat");
-			FileOutputStream fo = new FileOutputStream(f);
-			ObjectOutputStream os = new ObjectOutputStream(fo);
-
-			for (Atleta a : Datos.ATLETAS) {
-				DatosPersona dp = a.getPersona();
-				if (dp.getFechaNac().isAfter(LocalDate.of(2000, 1, 1))) {
-					os.writeObject(a);
-				}
-				os.close();
-			}
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-		}
-	}
-**/
+	/**
+	 * Ejercicio 1 y 2 private static boolean loginU(Credenciales cred) { return
+	 * false;
+	 * 
+	 * }
+	 * 
+	 * public void leerU() { try { FileReader entrada = new
+	 * FileReader("C:/Uuarios/usut25/Desktop/ejemplo.txt"); int c = 0; while (c !=
+	 * -1) { c = entrada.read(); char letra = (char) c; System.out.print(letra); }
+	 * entrada.close(); } catch (IOException e) { System.out.println("No se ha
+	 * encontrado el archivo"); } }
+	 * 
+	 * public static void exportarJunior() { try { File f = new File("juniors.dat");
+	 * FileOutputStream fo = new FileOutputStream(f); ObjectOutputStream os = new
+	 * ObjectOutputStream(fo);
+	 * 
+	 * for (Atleta a : Datos.ATLETAS) { DatosPersona dp = a.getPersona(); if
+	 * (dp.getFechaNac().isAfter(LocalDate.of(2000, 1, 1))) { os.writeObject(a); }
+	 * os.close(); } } catch (FileNotFoundException e) { e.printStackTrace(); }
+	 * catch (IOException e) { e.printStackTrace(); } finally { } }
+	 **/
 	// Examen 3 Ejercicio 2 - Examen 4 Ejercicio 3C
 	private static void mostrarMenu(Rol rol) {
 		int elecc = -1;
@@ -618,72 +597,100 @@ public class Principal4 {
 		System.out.println("" + "0. Volver");
 	}
 
-
 	/// Examen 6 Ejercicio 1
-		/**
-		 * Función para el login de un usuario mediante sus credenciales de acceso
-		 * 
-		 * @param cred credenciales de acceso (2 cadenas de caracteres para usuario y
-		 *             passsword)
-		 * @return true si las credenciales coinciden con alguna de las contenidas en el
-		 *         fichero de caracteres credenciales.txt o false en caso contrario
-		 */
-		private static boolean login(Credenciales cred) {
-			boolean ret = false;
-			File fichero = new File("credenciales.txt");
-			FileReader lector = null;
-			BufferedReader buffer = null;
+	/**
+	 * Función para el login de un usuario mediante sus credenciales de acceso
+	 * 
+	 * @param cred credenciales de acceso (2 cadenas de caracteres para usuario y
+	 *             passsword)
+	 * @return true si las credenciales coinciden con alguna de las contenidas en el
+	 *         fichero de caracteres credenciales.txt o false en caso contrario
+	 */
+	private static boolean login(Credenciales cred) {
+		boolean ret = false;
+		File fichero = new File("credenciales.txt");
+		FileReader lector = null;
+		BufferedReader buffer = null;
+		try {
 			try {
-				try {
-					lector = new FileReader(fichero);
-					buffer = new BufferedReader(lector);
-					String linea;
-					while ((linea = buffer.readLine()) != null) {
-						String[] campos = linea.split("\\|");
-						String user = campos[0];
-						String pass = campos[1];
-						String rol = campos[2];
-						if (user.equals(cred.getUsuario()))
-							if (pass.equals(cred.getPassword()))
-								return true;
-					}
-				} finally {
-					if (buffer != null) {
-						buffer.close();
-					}
-					if (lector != null) {
-						lector.close();
-					}
+				lector = new FileReader(fichero);
+				buffer = new BufferedReader(lector);
+				String linea;
+				while ((linea = buffer.readLine()) != null) {
+					String[] campos = linea.split("\\|");
+					String user = campos[0];
+					String pass = campos[1];
+					String rol = campos[2];
+					if (user.equals(cred.getUsuario()))
+						if (pass.equals(cred.getPassword()))
+							return true;
 				}
-			} catch (FileNotFoundException e) {
-				System.out.println("Se ha producido una FileNotFoundException" + e.getMessage());
-			} catch (IOException e) {
-				System.out.println("Se ha producido una IOException" + e.getMessage());
-			} catch (Exception e) {
-				System.out.println("Se ha producido una Exception" + e.getMessage());
+			} finally {
+				if (buffer != null) {
+					buffer.close();
+				}
+				if (lector != null) {
+					lector.close();
+				}
 			}
-			return ret;
+		} catch (FileNotFoundException e) {
+			System.out.println("Se ha producido una FileNotFoundException" + e.getMessage());
+		} catch (IOException e) {
+			System.out.println("Se ha producido una IOException" + e.getMessage());
+		} catch (Exception e) {
+			System.out.println("Se ha producido una Exception" + e.getMessage());
 		}
+		return ret;
+	}
 
-		/// Examen 6 Ejercicio 2
-		/***
-		 * (Máx 2ptos.) Implementar una función para recorrer todos los elementos del
-		 * array ATLETAS de la clase Datos.java, y exportar a un fichero binario de
-		 * nombre juniors.dat sólo aquellos atletas considerados como Junior (es decir,
-		 * cuya fechaNac posterior al 01/01/2000).
-		 */
-		public static void exportarAtletasJunior() {
-			String path = "juniors.dat";
+	/// Examen 6 Ejercicio 2
+	/***
+	 * (Máx 2ptos.) Implementar una función para recorrer todos los elementos del
+	 * array ATLETAS de la clase Datos.java, y exportar a un fichero binario de
+	 * nombre juniors.dat sólo aquellos atletas considerados como Junior (es decir,
+	 * cuya fechaNac posterior al 01/01/2000).
+	 */
+	public static void exportarAtletasJunior() {
+		String path = "juniors.dat";
+		try {
+			FileOutputStream fichero = new FileOutputStream(path, false); // el 2º argumento a true para que concatene
+																			// al final del fichero, en lugar de
+																			// sobreescribir
+			ObjectOutputStream escritor = new ObjectOutputStream(fichero);
+			for (Atleta a : Datos.ATLETAS) {
+				if (a.getPersona().getFechaNac().isAfter(LocalDate.of(2000, 1, 1))) {
+					escritor.writeObject((Atleta) a);
+					escritor.flush();
+				}
+			}
+			escritor.close();
+		} catch (FileNotFoundException e) {
+			System.out.println("Se ha producido una FileNotFoundException" + e.getMessage());
+		} catch (IOException e) {
+			System.out.println("Se ha producido una IOException" + e.getMessage());
+		} catch (Exception e) {
+			System.out.println("Se ha producido una Exception" + e.getMessage());
+		}
+	}
+/**
+ * Ejercicio 3
+ */
+	public static void exportarManagers() {
+			String path = "managers.dat";
 			try {
 				FileOutputStream fichero = new FileOutputStream(path, false); // el 2º argumento a true para que concatene
 																				// al final del fichero, en lugar de
 																				// sobreescribir
 				ObjectOutputStream escritor = new ObjectOutputStream(fichero);
-				for (Atleta a : Datos.ATLETAS) {
-					if (a.getPersona().getFechaNac().isAfter(LocalDate.of(2000, 1, 1))) {
-						escritor.writeObject((Atleta) a);
+				for (Manager m : Datos.MANAGERS) {
+					if (m.getPersona().getFechaNac().isAfter(LocalDate.of(2000, 1, 1))) {
+						escritor.writeObject((Manager) m);
 						escritor.flush();
 					}
+				
+						 
+						
+							
 				}
 				escritor.close();
 			} catch (FileNotFoundException e) {
@@ -694,4 +701,41 @@ public class Principal4 {
 				System.out.println("Se ha producido una Exception" + e.getMessage());
 			}
 		}
+	/**
+	 * Ejercicio 2 Implementacón de una función para recorrer todos los elementos del array COLEGIADOS
+de la clase Datos.java, y exportar a distintos ficheros binarios de nombres 
+colegiadosjunior.dat, colegiadossenior.dat ycolegiadosespecial.dat los datos 
+completos de cada uno de los colegiados en función de la categoría a la que pertenecen. 
+
+	 */
+	public static void exportarColegiados() {
+		String path = "Datos.dat";
+		try {
+			FileOutputStream fichero = new FileOutputStream(path, false); // el 2º argumento a true para que concatene
+																			// al final del fichero, en lugar de
+																			// sobreescribir
+			ObjectOutputStream escritor = new ObjectOutputStream(fichero);
+			for (Colegiado c : Datos.COLEGIADOS) {
+				if (c.getCategoria()==Categoria.JUNIOR) {
+					escritor.writeObject((Colegiado) c);
+					escritor.flush();
+				}if (c.getCategoria()==Categoria.ESPECIAL) {
+					escritor.writeObject((Colegiado) c);
+					escritor.flush();
+				}if (c.getCategoria()==Categoria.SENIOR) {
+					escritor.writeObject((Colegiado) c);
+					escritor.flush();
+				}
+				
+				
+			}
+			escritor.close();
+		} catch (FileNotFoundException e) {
+			System.out.println("Se ha producido una FileNotFoundException" + e.getMessage());
+		} catch (IOException e) {
+			System.out.println("Se ha producido una IOException" + e.getMessage());
+		} catch (Exception e) {
+			System.out.println("Se ha producido una Exception" + e.getMessage());
+		}
+	}
 }
