@@ -1,17 +1,21 @@
 package entidades;
 
-import java.io.BufferedWriter;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.format.DateTimeFormatter;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.TreeMap;
+
 import utils.Datos;
 import validaciones.Validaciones;
 
 public class Manager {
+	private static Object[] MANAGERS;
 	private long id;
 	private String telefono;
 	private String direccion;
@@ -195,6 +199,19 @@ public class Manager {
 		}
 	}
 
+	/**
+	 * Ejercicio 3 Daniel
+	 */
+	public static void MapDocumentacion() {
+		
+		System.out.println("********* TreeMap *********");
+		Map <String, Documentacion> managers = new TreeMap<String, Documentacion>();
+	//	managers.put("Rosa", new Documentacion(1, 2020, MANAGERS[0], equipo1));
+	//	managers.put("Laura", new Documentacion(2, 2020, MANAGERS[1], equipo2));
+	//	managers.put("Ramon", new Documentacion(3, 2020, MANAGERS[2], equipo3));
+	
+	}
+	
 	/***
 	 * Función que devuelve una cadena de caracteres con los datos del mánager en el
 	 * siguiente formato: <idManager> <nombre> ” (” <documentacion> ”) del año ”
